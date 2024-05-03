@@ -2,9 +2,11 @@
 
 using namespace std;
 class BST {
+    
 public:
-    int data;
     int height;
+    int data;
+    
     BST* left, * right,*parent;
 
 
@@ -13,6 +15,7 @@ public:
 
     // Parameterized constructor.
     BST(int);
+    int getHeight(BST*);
 
     // Insert function.
     BST* Insert(BST*, int);
@@ -43,7 +46,17 @@ BST::BST(int value)
     left = right = parent= NULL;
 
 }
-
+int BST::getHeight(BST* root)
+{
+    if (!root)
+    {
+        return 0;
+    }
+    else
+    {
+        return root->height;
+    }
+}
 // Insert function definition.
 BST* BST::Insert(BST* root, int value)
 {
@@ -59,6 +72,7 @@ BST* BST::Insert(BST* root, int value)
         // to be inserted is greater than 'root' node data.
 
         // Process right nodes.
+        
         root->right = Insert(root->right, value);
         if (root->right->parent != root)
         root->right->parent = root;
@@ -68,11 +82,13 @@ BST* BST::Insert(BST* root, int value)
         // to be inserted is smaller than 'root' node data.
 
         // Process left nodes.
+            
         root->left = Insert(root->left, value);
         if(root->left->parent != root)
         root->left->parent = root;
     }
 
+    root->height = 1 + max(getHeight(root->right), getHeight(root->left));
     // Return 'root' node, after insertion.
     return root;
 }
@@ -85,7 +101,7 @@ void BST::InOrderWalk(BST* root)
         return;
     }
     InOrderWalk(root->left);
-    cout << root->data << " ";
+    cout << root->data << " "<<root->height<<endl;
     InOrderWalk(root->right);
 }
 
