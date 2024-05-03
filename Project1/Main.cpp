@@ -4,6 +4,7 @@ using namespace std;
 class BST {
 public:
     int data;
+    int height;
     BST* left, * right,*parent;
 
 
@@ -27,6 +28,7 @@ public:
 // Default Constructor definition.
 BST::BST()
     : data(0)
+    , height(1)
     , parent(NULL)
     , left(NULL)
     , right(NULL)
@@ -37,6 +39,7 @@ BST::BST()
 BST::BST(int value)
 {
     data = value;
+    height = 1;
     left = right = parent= NULL;
 
 }
