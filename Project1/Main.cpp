@@ -26,6 +26,8 @@ public:
     void ISBalanced(BST);
 
     BST* ParentSearch(BST*, int value);
+
+    int isBalanced(BST* root);
 };
 
 // Default Constructor definition.
@@ -105,6 +107,24 @@ void BST::InOrderWalk(BST* root)
     InOrderWalk(root->right);
 }
 
+// Function to check if tree is height balanced (works recursively) checks from leaf up to main root
+int BST::isBalanced(BST* root)
+{
+    //if list is empty
+    if (root == NULL)
+        return 0;
+    int lh = isBalanced(root->left); // recursive checks if left "root" of left branch is balanced
+    if (lh == -1) // returns -1 if unbalanced
+        return -1;
+    int rh = isBalanced(root->right); // recursive checks if left "root" of right branch is balanced
+    if (rh == -1)
+        return -1; // returns -1 if unbalanced
+
+    if (abs(lh - rh) > 1) // adds the node value of left node and right node and gives abs value (+), if greater than 1 then tree is not balanced
+        return -1; // returns -1 if unbalanced
+    else
+        return max(lh, rh) + 1; // returns the height of the tree
+}
 
 //search the node of the parent from the value of the child
 BST* BST::ParentSearch(BST *root, int value)
@@ -139,30 +159,36 @@ BST* BST::ParentSearch(BST *root, int value)
 
 
 //this is left to implement...
-void BST::ISBalanced(BST root) {
-    BST tootTemp = root;
+//void BST::ISBalanced(BST root) {
+//    BST tootTemp = root;
+//
+//
+//
+//}
 
 
-
-}
 
 int main(void)
 {
     BST b, * root = NULL;
     root = b.Insert(root, 50);
-    b.Insert(root, 30);
+    //b.Insert(root, 70);
     b.Insert(root, 20);
-    b.Insert(root, 40);
-    b.Insert(root, 70);
-    b.Insert(root, 80);
-    b.Insert(root, 60);
-    b.Insert(root, -60);
-    b.Insert(root, 120);
-
+    b.Insert(root, 10);
+    //b.Insert(root, 80);
+    b.Insert(root, 30);
+    //b.Insert(root, 60);
 
 
     b.InOrderWalk(root);
    
+    if (b.isBalanced(root) == -1)
+    {
+        cout << "not balanced in height";
+
+    }
+    else
+        cout << "is balanced height";
 
     return 0;
 }
