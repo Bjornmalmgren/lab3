@@ -29,6 +29,8 @@ public:
 
     BST* lr_rotat(BST* parent);
 
+    BST* rl_rotat(BST* parent);
+
     BST* ParentSearch(BST*, int value);
 
     int isBalanced(BST* root);
@@ -184,7 +186,8 @@ BST* BST::rr_rotat(BST* parent)
     return t;
 }
 
-BST* BST::lr_rotat(BST* parent) {
+BST* BST::lr_rotat(BST* parent) 
+{
     BST* t;
     t = parent->left;
     parent->left = rr_rotat(t);
@@ -193,6 +196,15 @@ BST* BST::lr_rotat(BST* parent) {
     return ll_rotat(parent);
 }
 
+BST* BST::rl_rotat(BST* parent) 
+{
+    BST* t;
+    t = parent->right;
+    parent->right = ll_rotat(t);
+    cout << "Right-Left Rotation";
+    cout << endl;
+    return rr_rotat(parent);
+}
 
 int main(void)
 {
