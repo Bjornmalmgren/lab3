@@ -34,6 +34,8 @@ public:
     BST* ParentSearch(BST*, int value);
 
     int isBalanced(BST* root);
+
+    void UpdatingHeight(BST* root);
 };
 
 // Default Constructor definition.
@@ -132,7 +134,20 @@ int BST::isBalanced(BST* root)
         return max(lh, rh) + 1; // returns the height of the tree
 }
 
-
+void BST::UpdatingHeight(BST* root) {
+    if (!root) { return; }
+    static int height = 1;
+    UpdatingHeight(root->left);
+    if (root->left == NULL && root->right == NULL) {
+        root->height = 1;
+    }
+    else
+    {
+        root->height = height;
+    }
+    UpdatingHeight(root->right);
+    height++;
+}
 
 //search the node of the parent from the value of the child
 BST* BST::ParentSearch(BST *root, int value)
@@ -166,9 +181,11 @@ BST* BST::ParentSearch(BST *root, int value)
 BST* BST::ll_rotat(BST* parent) 
 {
     BST* t;
-    t = parent->left;
-    parent->left = t->right;
+    t = parent->right;
+    parent->right = nullptr;
     t->left = parent;
+    parent->parent = t;
+    t->parent = NULL;
     cout << "Left-Left Rotation";
     cout << endl;
     return t;
@@ -209,19 +226,19 @@ BST* BST::rl_rotat(BST* parent)
 int main(void)
 {
     BST b, * root = NULL;
-    root = b.Insert(root, 50);
-    b.Insert(root, 70);
+    root = b.Insert(root, 10);
+    b.Insert(root, 50);
     //b.Insert(root, 20);
-    b.Insert(root, 10);
-    b.Insert(root, 80);
+    b.Insert(root, 70);
+    //b.Insert(root, 80);
     //b.Insert(root, 30);
     //b.Insert(root, 60);
-    b.Insert(root, 160);
-    b.Insert(root, 170);
-
-
-    b.ll_rotat(root);
-
+    //b.Insert(root, 160);
+    //b.Insert(root, 170);
+    root = b.ll_rotat(root);
+    //b.rr_rotat(root);
+    cout << root->left->data << " " << root->right->data << endl;
+    b.UpdatingHeight(root);
     b.InOrderWalk(root);
    
     if (b.isBalanced(root) == -1)
