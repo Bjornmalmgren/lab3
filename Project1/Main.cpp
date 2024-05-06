@@ -23,7 +23,11 @@ public:
     // Inorder traversal.
     void InOrderWalk(BST*);
 
-    void ISBalanced(BST);
+    BST* rr_rotat(BST* parent);
+
+    BST* ll_rotat(BST* parent);
+
+    BST* lr_rotat(BST* parent);
 
     BST* ParentSearch(BST*, int value);
 
@@ -126,6 +130,8 @@ int BST::isBalanced(BST* root)
         return max(lh, rh) + 1; // returns the height of the tree
 }
 
+
+
 //search the node of the parent from the value of the child
 BST* BST::ParentSearch(BST *root, int value)
 {
@@ -147,38 +153,62 @@ BST* BST::ParentSearch(BST *root, int value)
         root->right = ParentSearch(root->right, value);
        
     }
-    else if (value < root->data) {
-       
-        root->left = ParentSearch(root->left, value);
-        
-    }
-
-   
+    else if (value < root->data) 
+    {
+        root->left = ParentSearch(root->left, value);   
+    }  
 }
 
 
 
-//this is left to implement...
-//void BST::ISBalanced(BST root) {
-//    BST tootTemp = root;
-//
-//
-//
-//}
+BST* BST::ll_rotat(BST* parent) 
+{
+    BST* t;
+    t = parent->left;
+    parent->left = t->right;
+    t->left = parent;
+    cout << "Left-Left Rotation";
+    cout << endl;
+    return t;
+}
 
+
+BST* BST::rr_rotat(BST* parent) 
+{
+    BST* t;
+    t = parent->right;
+    parent->right = parent->left;
+    parent->left = parent;
+    cout << "Right-Right Rotation";
+    cout << endl;
+    return t;
+}
+
+BST* BST::lr_rotat(BST* parent) {
+    BST* t;
+    t = parent->left;
+    parent->left = rr_rotat(t);
+    cout << "Left-Right Rotation";
+    cout << endl;
+    return ll_rotat(parent);
+}
 
 
 int main(void)
 {
     BST b, * root = NULL;
     root = b.Insert(root, 50);
-    //b.Insert(root, 70);
-    b.Insert(root, 20);
+    b.Insert(root, 70);
+    //b.Insert(root, 20);
     b.Insert(root, 10);
-    //b.Insert(root, 80);
-    b.Insert(root, 30);
+    b.Insert(root, 80);
+    //b.Insert(root, 30);
     //b.Insert(root, 60);
+    b.Insert(root, 160);
+    b.Insert(root, 170);
 
+
+    b.ll_rotat(root);
 
     b.InOrderWalk(root);
    
