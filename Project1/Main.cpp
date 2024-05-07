@@ -18,7 +18,7 @@ public:
     int getHeight(BST*);
 
     // Insert function.
-    BST* Insert(BST*, int);
+    BST* Insert(BST*, int,float);
 
     // Inorder traversal.
     void InOrderWalk(BST*);
@@ -68,7 +68,7 @@ int BST::getHeight(BST* root)
     }
 }
 // Insert function definition.
-BST* BST::Insert(BST* root, int value)
+BST* BST::Insert(BST* root, int value,float constant)
 {
     if (!root) {
 
@@ -99,6 +99,13 @@ BST* BST::Insert(BST* root, int value)
     }
 
     root->height = 1 + max(getHeight(root->right), getHeight(root->left));
+
+    int  heightDifference = getHeight(root->left) - getHeight(root - right);
+
+    if (getHeight(root->right) > constant * heightDifference || getHeight(root->left) > constant * heightDifference)
+    {
+        //rebalance
+    }
     // Return 'root' node, after insertion.
     return root;
 }
