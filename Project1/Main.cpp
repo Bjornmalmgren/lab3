@@ -100,7 +100,7 @@ BST* BST::Insert(BST* root, int value,float constant)
 
     root->height = 1 + max(getHeight(root->right), getHeight(root->left));
 
-    int  heightDifference = getHeight(root->left) - getHeight(root - right);
+    int  heightDifference = getHeight(root->left) - getHeight(root->right);
 
     if (getHeight(root->right) > constant * heightDifference || getHeight(root->left) > constant * heightDifference)
     {
