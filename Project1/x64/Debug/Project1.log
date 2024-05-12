@@ -1,4 +1,3 @@
 ﻿  Main.cpp
-C:\Users\frass\Documents\GitHub\lab3\Project1\Main.cpp(286,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\frass\Documents\GitHub\lab3\Project1\Main.cpp(197): warning C4715: 'BST::ParentSearch': not all control paths return a value
-  Project1.vcxproj -> C:\Users\frass\Documents\GitHub\lab3\Project1\x64\Debug\Project1.exe
+D:\Github\lab3\Project1\Main.cpp(197,47): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  Project1.vcxproj -> D:\Github\lab3\Project1\x64\Debug\Project1.exe

@@ -23,16 +23,6 @@ public:
     // Inorder traversal.
     void InOrderWalk(BST*);
 
-    BST* rr_rotat(BST* parent);
-
-    BST* ll_rotat(BST* parent);
-
-    BST* lr_rotat(BST* parent);
-
-    BST* rl_rotat(BST* parent);
-
-    BST* ParentSearch(BST*, int value);
-
     int isBalanced(BST* root);
 
     void UpdatingHeight(BST* root);
@@ -100,14 +90,6 @@ BST* BST::Insert(BST* root, int value)
         root->left->parent = root;
     }
 
-    //root->height = 1 + max(getHeight(root->right), getHeight(root->left));
-
-    //int  heightDifference = getHeight(root->left) - getHeight(root->right);
-
-    //if (getHeight(root->right) > constant * heightDifference || getHeight(root->left) > constant * heightDifference)
-    //{
-    //    //rebalance
-    //}
     // Return 'root' node, after insertion.
     return root;
 }
@@ -169,32 +151,6 @@ void BST::UpdatingHeight(BST* root) {
 
 }
 
-//search the node of the parent from the value of the child
-BST* BST::ParentSearch(BST *root, int value)
-{
-    
-    if (root->data == value)
-    {
-        if (!root->parent)
-        {
-            return root;
-        }
-        return root->parent;
-    }
-    
-    if (value > root->data) {
-        // Insert right node data, if the 'value'
-        // to be inserted is greater than 'root' node data.
-
-        // Process right nodes.
-        root->right = ParentSearch(root->right, value);
-       
-    }
-    else if (value < root->data) 
-    {
-        root->left = ParentSearch(root->left, value);   
-    }  
-}
 
 //walks through the BST in order and puts all values in a vector to use for balancing
 void BST::InOrder(BST* root, vector<int>& result) {
@@ -224,51 +180,6 @@ BST* BST::Balancetree(int start, int end, vector<int>& inOrderValues) {
 }
 
 
-BST* BST::ll_rotat(BST* parent) 
-{
-    BST* t;
-    t = parent->right;
-    parent->right = nullptr;
-    t->left = parent;
-    parent->parent = t;
-    t->parent = NULL;
-    cout << "Left-Left Rotation";
-    cout << endl;
-    return t;
-}
-
-
-BST* BST::rr_rotat(BST* parent) 
-{
-    BST* t;
-    t = parent->right;
-    parent->right = parent->left;
-    parent->left = parent;
-    cout << "Right-Right Rotation";
-    cout << endl;
-    return t;
-}
-
-BST* BST::lr_rotat(BST* parent) 
-{
-    BST* t;
-    t = parent->left;
-    parent->left = rr_rotat(t);
-    cout << "Left-Right Rotation";
-    cout << endl;
-    return ll_rotat(parent);
-}
-
-BST* BST::rl_rotat(BST* parent) 
-{
-    BST* t;
-    t = parent->right;
-    parent->right = ll_rotat(t);
-    cout << "Right-Left Rotation";
-    cout << endl;
-    return rr_rotat(parent);
-}
-
 int main(void)
 {
     BST b, * root = NULL;
@@ -279,18 +190,15 @@ int main(void)
     b.Insert(root, 70);
     b.Insert(root, 80);
     b.Insert(root, 30);
-    //b.Insert(root, 60);
     b.Insert(root, 160);
-    //b.Insert(root, 170);
-    //root = b.ll_rotat(root);
-    //b.rr_rotat(root);
-    //b.InOrderWalk(root);
+
     b.InOrder(root, inOrderInt);
+
     root = b.Balancetree(0, inOrderInt.size() - 1, inOrderInt);
+
     //updating height is need to make sure that we can se that the result is correct
     b.UpdatingHeight(root);
     b.InOrderWalk(root);
-
 
     if (b.isBalanced(root) == -1)
     {
