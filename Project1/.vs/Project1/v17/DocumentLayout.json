@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\edmagu-1-local\\Desktop\\Algorithmer\\Algorithms assign 2 part 2\\lab3\\Project1\\",
+  "WorkspaceRootPath": "C:\\Users\\Mono\\Desktop\\The First Game in Mankind\\NewTerrain\\lab3\\Project1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{46C6F289-71B4-4B5D-96E0-B56E49F58A68}|Project1.vcxproj|C:\\Users\\edmagu-1-local\\Desktop\\Algorithmer\\Algorithms assign 2 part 2\\lab3\\Project1\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{46C6F289-71B4-4B5D-96E0-B56E49F58A68}|Project1.vcxproj|C:\\Users\\Mono\\Desktop\\The First Game in Mankind\\NewTerrain\\lab3\\Project1\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{46C6F289-71B4-4B5D-96E0-B56E49F58A68}|Project1.vcxproj|solutionrelative:Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -14,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 15,
+          "SelectedChildIndex": 16,
           "Children": [
             {
               "$type": "Bookmark",
@@ -77,14 +77,18 @@
               "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Main.cpp",
-              "DocumentMoniker": "C:\\Users\\edmagu-1-local\\Desktop\\Algorithmer\\Algorithms assign 2 part 2\\lab3\\Project1\\Main.cpp",
+              "DocumentMoniker": "C:\\Users\\Mono\\Desktop\\The First Game in Mankind\\NewTerrain\\lab3\\Project1\\Main.cpp",
               "RelativeDocumentMoniker": "Main.cpp",
-              "ToolTip": "C:\\Users\\edmagu-1-local\\Desktop\\Algorithmer\\Algorithms assign 2 part 2\\lab3\\Project1\\Main.cpp",
+              "ToolTip": "C:\\Users\\Mono\\Desktop\\The First Game in Mankind\\NewTerrain\\lab3\\Project1\\Main.cpp",
               "RelativeToolTip": "Main.cpp",
-              "ViewState": "AQIAAJYAAAAAAAAAAAAQwKUAAAAAAAAA",
+              "ViewState": "AQIAAJsAAAAAAAAAAAAuwAABAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-05-02T12:06:37.367Z",
               "EditorCaption": ""

@@ -28,6 +28,8 @@ public:
     void UpdatingHeight(BST* root);
     BST* Balancetree(int start, int end, vector<int>& inOrderValues);
     void InOrder(BST* root, vector<int>& result);
+
+    bool ConstantCondition(BST* root, vector<int> inOrderInt);
 };
 
 // Default Constructor definition.
@@ -126,28 +128,38 @@ int BST::isBalanced(BST* root)
 }
 
 void BST::UpdatingHeight(BST* root) {
+
+    // denna kod funkar för att uppdatera height av noderna
     if (!root) { return; }
     UpdatingHeight(root->left);
     UpdatingHeight(root->right);
-    if (root->left == NULL && root->right == NULL) {
-        root->height = 1;
-        return;
-    }
-    else if (root->left != NULL && root->right != NULL)
-    {
-        root->height = abs(root->left->height -root->right->height);
-        if (root->height == 0) {
-            root->height = root->left->height + 1;
-        }
-    }
-    else if(root->left != NULL)
-    {
-        root->height = root->left->height+1;
-    }
-    else if (root->right != NULL)
-    {
-        root->height = root->right->height + 1;
-    }
+
+    int leftHeight = (root->left) ? root->left->height : 0;
+    int rightHeight = (root->right) ? root->right->height : 0;
+
+    root->height = 1 + max(leftHeight, rightHeight);
+
+
+    // något fuffens med nedanstående kod
+    //if (root->left == NULL && root->right == NULL) {
+    //    root->height = 1;
+    //    return;
+    //}
+    //else if (root->left != NULL && root->right != NULL)
+    //{
+    //    root->height = abs(root->left->height -root->right->height);
+    //    if (root->height == 0) {
+    //        root->height = root->left->height + 1;
+    //    }
+    //}
+    //else if(root->left != NULL)
+    //{
+    //    root->height = root->left->height+1;
+    //}
+    //else if (root->right != NULL)
+    //{
+    //    root->height = root->right->height + 1;
+    //}
 
 }
 
@@ -162,6 +174,42 @@ void BST::InOrder(BST* root, vector<int>& result) {
     result.push_back(root->data);
     InOrder(root->right, result);
 }
+
+
+// Works fine now. c can be changed and it uses more or less imbalance depending on 0,5 < c < 1 condition
+//implementing 0,5 < c < 1 condition, checks the amount of nodes in right and left side
+bool BST::ConstantCondition(BST* root, vector<int> inOrderInt)
+{
+    float c = 0.7; // change this variable for when we should balance tree.
+
+    int whereIsTheRoot = 0;
+
+
+    for (int i = 0; i < inOrderInt.size(); i++)
+    {
+        if (root->data < inOrderInt[i])
+        {
+            whereIsTheRoot += 1;
+        }
+    }
+
+    float cond_right = whereIsTheRoot; // how many nodes to the left
+
+    float cond_left = inOrderInt.size() - (whereIsTheRoot + 1); //(+1 compensate from middle) how many nodes to the right    
+
+    //cout << cond_left << endl <<cond_right;
+
+    if (cond_left > (c * (inOrderInt.size() - 1)) || cond_right > (c * (inOrderInt.size() - 1)))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
+
 
 //balances
 BST* BST::Balancetree(int start, int end, vector<int>& inOrderValues) {
@@ -189,16 +237,34 @@ int main(void)
     b.Insert(root, 50);
     b.Insert(root, 10);
     b.Insert(root, 70);
-    b.Insert(root, 80);
-    b.Insert(root, 30);
+    b.Insert(root, 5);
     b.Insert(root, 160);
+    b.Insert(root, 260);
+    b.Insert(root, 360);
+    b.Insert(root, 460);
+    b.Insert(root, 560);
+    b.Insert(root, 660);
+    b.Insert(root, 760);
+    b.Insert(root, 860);
+
+    //b.Insert(root, 136);
+
+
 
     b.InOrder(root, inOrderInt);
 
-    root = b.Balancetree(0, inOrderInt.size() - 1, inOrderInt);
-
-    //updating height is need to make sure that we can se that the result is correct
     b.UpdatingHeight(root);
+
+    if (b.ConstantCondition(root, inOrderInt)) // if this statement is true eg. if the condition of c is true rebalance tree
+    {
+        root = b.Balancetree(0, inOrderInt.size() - 1, inOrderInt);
+
+        //updating height is need to make sure that we can se that the result is correct
+        b.UpdatingHeight(root);
+    }
+
+    b.ConstantCondition(root, inOrderInt);
+
     b.InOrderWalk(root);
 
     if (b.isBalanced(root) == -1)
