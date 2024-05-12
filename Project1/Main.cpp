@@ -205,19 +205,19 @@ int main(void)
 
     b.InOrder(root, inOrderInt);
 
-    root = b.Balancetree(0, inOrderInt.size() - 1, inOrderInt);
+   // root = b.Balancetree(0, inOrderInt.size() - 1, inOrderInt);
 
     //updating height is need to make sure that we can se that the result is correct
     b.UpdatingHeight(root);
     b.InOrderWalk(root);
 
-    if (b.isBalanced(root) == -1)
+  /*  if (b.isBalanced(root) == -1)
     {
         cout << "not balanced in height";
 
     }
     else
-        cout << "is balanced height";
+        cout << "is balanced height";*/
 
     return 0;
 }
