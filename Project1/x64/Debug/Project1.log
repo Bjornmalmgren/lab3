@@ -1,3 +1,4 @@
 ﻿  Main.cpp
-C:\Users\bjmall-3-local\Documents\GitHub\lab3\Project1\Main.cpp(177): warning C4715: 'BST::ParentSearch': not all control paths return a value
-  Project1.vcxproj -> C:\Users\bjmall-3-local\Documents\GitHub\lab3\Project1\x64\Debug\Project1.exe
+C:\Users\frass\Documents\GitHub\lab3\Project1\Main.cpp(286,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\frass\Documents\GitHub\lab3\Project1\Main.cpp(197): warning C4715: 'BST::ParentSearch': not all control paths return a value
+  Project1.vcxproj -> C:\Users\frass\Documents\GitHub\lab3\Project1\x64\Debug\Project1.exe

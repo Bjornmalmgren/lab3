@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <vector> 
 using namespace std;
 class BST {
     
@@ -18,7 +18,7 @@ public:
     int getHeight(BST*);
 
     // Insert function.
-    BST* Insert(BST*, int,float);
+    BST* Insert(BST*, int);
 
     // Inorder traversal.
     void InOrderWalk(BST*);
@@ -36,6 +36,8 @@ public:
     int isBalanced(BST* root);
 
     void UpdatingHeight(BST* root);
+    BST* Balancetree(int start, int end, vector<int>& inOrderValues);
+    void InOrder(BST* root, vector<int>& result);
 };
 
 // Default Constructor definition.
@@ -68,7 +70,7 @@ int BST::getHeight(BST* root)
     }
 }
 // Insert function definition.
-BST* BST::Insert(BST* root, int value,float constant)
+BST* BST::Insert(BST* root, int value)
 {
     if (!root) {
 
@@ -98,14 +100,14 @@ BST* BST::Insert(BST* root, int value,float constant)
         root->left->parent = root;
     }
 
-    root->height = 1 + max(getHeight(root->right), getHeight(root->left));
+    //root->height = 1 + max(getHeight(root->right), getHeight(root->left));
 
-    int  heightDifference = getHeight(root->left) - getHeight(root->right);
+    //int  heightDifference = getHeight(root->left) - getHeight(root->right);
 
-    if (getHeight(root->right) > constant * heightDifference || getHeight(root->left) > constant * heightDifference)
-    {
-        //rebalance
-    }
+    //if (getHeight(root->right) > constant * heightDifference || getHeight(root->left) > constant * heightDifference)
+    //{
+    //    //rebalance
+    //}
     // Return 'root' node, after insertion.
     return root;
 }
@@ -143,17 +145,28 @@ int BST::isBalanced(BST* root)
 
 void BST::UpdatingHeight(BST* root) {
     if (!root) { return; }
-    static int height = 1;
     UpdatingHeight(root->left);
+    UpdatingHeight(root->right);
     if (root->left == NULL && root->right == NULL) {
         root->height = 1;
+        return;
     }
-    else
+    else if (root->left != NULL && root->right != NULL)
     {
-        root->height = height;
+        root->height = abs(root->left->height -root->right->height);
+        if (root->height == 0) {
+            root->height = root->left->height + 1;
+        }
     }
-    UpdatingHeight(root->right);
-    height++;
+    else if(root->left != NULL)
+    {
+        root->height = root->left->height+1;
+    }
+    else if (root->right != NULL)
+    {
+        root->height = root->right->height + 1;
+    }
+
 }
 
 //search the node of the parent from the value of the child
@@ -183,6 +196,32 @@ BST* BST::ParentSearch(BST *root, int value)
     }  
 }
 
+//walks through the BST in order and puts all values in a vector to use for balancing
+void BST::InOrder(BST* root, vector<int>& result) {
+    if (root == NULL) {
+        return;
+    }
+
+    InOrder(root->left, result);
+    result.push_back(root->data);
+    InOrder(root->right, result);
+}
+
+//balances
+BST* BST::Balancetree(int start, int end, vector<int>& inOrderValues) {
+    if (start > end) {
+        return NULL;
+    }
+    //we find the middle value
+    int middle = (start + end) / 2;
+    //make the middle value the new root
+    BST* newRoot = new BST(inOrderValues[middle]);
+    //balances both right and left
+    newRoot->left = Balancetree(start, middle - 1, inOrderValues);
+    newRoot->right = Balancetree(middle+1, end, inOrderValues);
+
+    return newRoot;
+}
 
 
 BST* BST::ll_rotat(BST* parent) 
@@ -233,21 +272,26 @@ BST* BST::rl_rotat(BST* parent)
 int main(void)
 {
     BST b, * root = NULL;
-    root = b.Insert(root, 10);
+    vector<int> inOrderInt;
+    root = b.Insert(root, 20);
     b.Insert(root, 50);
-    //b.Insert(root, 20);
+    b.Insert(root, 10);
     b.Insert(root, 70);
-    //b.Insert(root, 80);
-    //b.Insert(root, 30);
+    b.Insert(root, 80);
+    b.Insert(root, 30);
     //b.Insert(root, 60);
-    //b.Insert(root, 160);
+    b.Insert(root, 160);
     //b.Insert(root, 170);
-    root = b.ll_rotat(root);
+    //root = b.ll_rotat(root);
     //b.rr_rotat(root);
-    cout << root->left->data << " " << root->right->data << endl;
+    //b.InOrderWalk(root);
+    b.InOrder(root, inOrderInt);
+    root = b.Balancetree(0, inOrderInt.size() - 1, inOrderInt);
+    //updating height is need to make sure that we can se that the result is correct
     b.UpdatingHeight(root);
     b.InOrderWalk(root);
-   
+
+
     if (b.isBalanced(root) == -1)
     {
         cout << "not balanced in height";
