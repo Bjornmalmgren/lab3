@@ -18,7 +18,7 @@ public:
     int getHeight(BST*);
 
     // Insert function.
-    BST* Insert(BST*, int);
+    BST* Insert(BST*, int,float);
 
     // Inorder traversal.
     void InOrderWalk(BST*);
@@ -28,6 +28,7 @@ public:
     void UpdatingHeight(BST* root);
     BST* Balancetree(int start, int end, vector<int>& inOrderValues);
     void InOrder(BST* root, vector<int>& result);
+    void FixTree(BST* root);
 };
 
 // Default Constructor definition.
@@ -60,7 +61,7 @@ int BST::getHeight(BST* root)
     }
 }
 // Insert function definition.
-BST* BST::Insert(BST* root, int value)
+BST* BST::Insert(BST* root, int value,float constant)
 {
     if (!root) {
 
@@ -89,7 +90,11 @@ BST* BST::Insert(BST* root, int value)
         if(root->left->parent != root)
         root->left->parent = root;
     }
-
+    int HeightDiff = getHeight(root->left)-getHeight(root->right);
+    if(getHeight(root->right)>constant*HeightDiff|| getHeight(root->left)>constant*HeightDiff)
+    {
+        FixTree(root);
+    }
     // Return 'root' node, after insertion.
     return root;
 }
@@ -178,20 +183,25 @@ BST* BST::Balancetree(int start, int end, vector<int>& inOrderValues) {
 
     return newRoot;
 }
-
+void BST::FixTree(BST* root)
+{
+    vector<int> inOrderTree;
+    InOrder(root,inOrderTree);
+    root = Balancetree(0,inOrderTree.size()-1,inOrderTree);
+}
 
 int main(void)
 {
     const float const_val = 0.75f;
     BST b, * root = NULL;
     vector<int> inOrderInt;
-    root = b.Insert(root, 20);
-    b.Insert(root, 50);
-    b.Insert(root, 10);
-    b.Insert(root, 70);
-    b.Insert(root, 80);
-    b.Insert(root, 30);
-    b.Insert(root, 160);
+    root = b.Insert(root, 20,const_val);
+    b.Insert(root, 50,const_val);
+    b.Insert(root, 10,const_val);
+    b.Insert(root, 70,const_val);
+    b.Insert(root, 80,const_val);
+    b.Insert(root, 30,const_val);
+    b.Insert(root, 160,const_val);
 
     b.InOrder(root, inOrderInt);
 
