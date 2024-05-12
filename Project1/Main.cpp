@@ -182,6 +182,7 @@ BST* BST::Balancetree(int start, int end, vector<int>& inOrderValues) {
 
 int main(void)
 {
+    const float const_val = 0.75f;
     BST b, * root = NULL;
     vector<int> inOrderInt;
     root = b.Insert(root, 20);
